@@ -14,10 +14,16 @@ cards.forEach((c, i) => { c.style.transitionDelay = (i % 3) * 80 + 'ms'; io.obse
 
 // Card spotlight + 3D tilt toward the cursor
 cards.forEach(c => {
-  c.addEventListener('pointermove', e => {
+  // pointerdown too, so on touch the press spotlight starts under the finger
+  const spot = e => {
     const r = c.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
     c.style.setProperty('--mx', x + 'px');
     c.style.setProperty('--my', y + 'px');
+    return [r, x, y];
+  };
+  c.addEventListener('pointerdown', spot);
+  c.addEventListener('pointermove', e => {
+    const [r, x, y] = spot(e);
     if (motion && finePointer) {
       c.style.setProperty('--ry', (x / r.width - .5) * 10 + 'deg');
       c.style.setProperty('--rx', (.5 - y / r.height) * 10 + 'deg');
@@ -29,6 +35,7 @@ cards.forEach(c => {
 // Category filter
 document.querySelectorAll('.filters button').forEach(b => b.addEventListener('click', () => {
   document.querySelectorAll('.filters button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  b.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: motion ? 'smooth' : 'auto' }); // swipeable row on phones
   cards.forEach(c => c.hidden = b.dataset.f !== 'all' && c.dataset.cat !== b.dataset.f);
 }));
 
@@ -47,7 +54,7 @@ if (motion) {
 // Glitch the name every few seconds and on hover
 if (motion) {
   (function loop() { setTimeout(() => { glitch(); loop(); }, 3000 + Math.random() * 4000); })();
-  h1.addEventListener('pointerenter', glitch);
+  h1.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') glitch(); });
 }
 
 if (motion && finePointer) {

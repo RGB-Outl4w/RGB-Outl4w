@@ -1,5 +1,5 @@
 // Easter eggs: Konami rave, "outlaw" terminal, 7-click themes, idle screensaver, console art.
-import { $, root, motion, cards, h1, toast, glitch, themes, setTheme } from './common.js';
+import { $, root, motion, finePointer, cards, h1, toast, glitch, themes, setTheme, buzz } from './common.js';
 
 // Themes: click the name 7 times within 1.5s gaps
 let clicks = 0, clickT;
@@ -11,6 +11,7 @@ h1.addEventListener('click', () => {
   clicks = 0;
   const next = themes[(themes.indexOf(root.dataset.theme || 'rgb') + 1) % themes.length];
   setTheme(next);
+  buzz(30);
   toast(`theme: ${next}`);
 });
 
@@ -18,7 +19,7 @@ h1.addEventListener('click', () => {
 const isRave = () => document.body.classList.contains('rave');
 function rave(on) {
   document.body.classList.toggle('rave', on);
-  toast(on ? 'RAVE MODE · Esc to stop' : 'rave over');
+  toast(on ? `RAVE MODE · ${finePointer ? 'Esc' : "'rave' again"} to stop` : 'rave over');
 }
 
 // Terminal: type "outlaw" anywhere
@@ -39,6 +40,17 @@ function openTerm() {
   requestAnimationFrame(() => input.focus());
 }
 function closeTerm() { term.classList.remove('open'); input.blur(); }
+$('.term-close').addEventListener('click', closeTerm);
+
+// Touch devices have no keyboard to type "outlaw": long-press the name instead
+let pressT;
+h1.addEventListener('pointerdown', e => {
+  if (e.pointerType === 'mouse') return;
+  clearTimeout(pressT);
+  pressT = setTimeout(() => { buzz(40); glitch(); openTerm(); }, 650);
+});
+['pointerup', 'pointercancel', 'pointerleave'].forEach(ev => h1.addEventListener(ev, () => clearTimeout(pressT)));
+h1.addEventListener('contextmenu', e => e.preventDefault());
 
 const cmds = {
   help: () => print('commands: ls, open <n|name>, whoami, theme [name], rave, support, sudo, clear, exit', 'dim'),
@@ -103,6 +115,7 @@ addEventListener('keydown', e => {
 // Idle screensaver: bouncing name after 60s without input
 if (motion) {
   const idle = $('.idle'), logo = idle.querySelector('span');
+  if (!finePointer) idle.querySelector('small').textContent = 'tap to wake up';
   let idleT, raf, x, y, vx, vy, h;
   function sleep() {
     idle.classList.add('on');

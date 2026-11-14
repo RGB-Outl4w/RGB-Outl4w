@@ -7,6 +7,9 @@ export const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matc
 export const cards = [...document.querySelectorAll('.card')];
 export const h1 = $('h1');
 
+// Short haptic tick on phones that support it (Android); no-op elsewhere
+export const buzz = (ms = 12) => { try { navigator.vibrate?.(ms); } catch {} };
+
 const toastEl = $('.toast');
 let toastT;
 export function toast(msg) {
