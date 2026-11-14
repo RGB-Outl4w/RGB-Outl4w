@@ -47,10 +47,10 @@
   .blob.b { background: var(--b); bottom: -22vmax; left: 20vw; animation-delay: -14s; }
   @keyframes drift { to { transform: translate(8vmax, 6vmax) scale(1.15); } }
 
-  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding-inline: 16px; }
 
   /* Hero */
-  header { padding: 14vh 0 8vh; text-align: center; }
+  header { padding-block: 12vh 7vh; text-align: center; }
   .tag { font: 600 12px/1 "JetBrains Mono", monospace; letter-spacing: .25em; text-transform: uppercase; color: var(--muted); }
   .tag::before { content: "> "; color: var(--g); }
   h1 {
@@ -122,7 +122,7 @@
   .go i { transition: transform .3s; font-style: normal; }
   .card:hover .go i { transform: translateX(6px); }
 
-  footer { border-top: 1px solid var(--line); padding: 28px 0 40px; text-align: center; color: var(--muted); font: 13px "JetBrains Mono", monospace; }
+  footer { border-top: 1px solid var(--line); padding-block: 28px 40px; text-align: center; color: var(--muted); font: 13px "JetBrains Mono", monospace; }
   footer a { color: var(--text); }
 
   @media (prefers-reduced-motion: reduce) {
