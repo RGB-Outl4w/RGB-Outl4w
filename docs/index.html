@@ -99,7 +99,18 @@
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor; mask-composite: exclude;
   }
-  .sup.aid .logo, .sup.aid .btn { background: var(--rgb); background-size: 300% 100%; animation: shift 5s linear infinite; }
+  .sup.aid .btn { background: var(--rgb); background-size: 300% 100%; animation: shift 5s linear infinite; }
+  .sup .logo img { width: 100%; height: 100%; border-radius: inherit; object-fit: cover; }
+  /* Hover glow cycles through the same colours as the animated border */
+  .sup.aid:hover, .sup.aid:focus-visible { animation: glow 5s linear infinite; }
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 18px 50px -14px #ff2e63; }
+    17% { box-shadow: 0 18px 50px -14px #ffb800; }
+    33% { box-shadow: 0 18px 50px -14px #00f5a0; }
+    50% { box-shadow: 0 18px 50px -14px #00d9ff; }
+    67% { box-shadow: 0 18px 50px -14px #3d7bff; }
+    83% { box-shadow: 0 18px 50px -14px #b14dff; }
+  }
   .sup.boosty { --c: #f15f2c; }
   @media (max-width: 820px) {
     .support { grid-template-columns: 1fr; }
@@ -187,7 +198,7 @@
   <section class="support" aria-label="Support my work">
     <a class="sup aid" href="https://aidapp.in/app/?ref=dev" target="_blank" rel="sponsored noopener">
       <span class="badge">referral</span>
-      <div class="logo">AID</div>
+      <div class="logo"><img src="img/aidapp.png" alt="AID APP logo" width="58" height="58"></div>
       <div class="body">
         <h3>AID APP</h3>
         <p>VPN, Telegram proxy, Steam top-ups, games and in-game goods. Signing up with my link supports me.</p>
@@ -195,7 +206,7 @@
       <span class="btn">Try it &rarr;</span>
     </a>
     <a class="sup boosty" href="https://boosty.to/rgboutlaw/donate" target="_blank" rel="noopener">
-      <div class="logo"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg></div>
+      <div class="logo"><img src="img/boosty.png" alt="Boosty logo" width="58" height="58"></div>
       <div class="body">
         <h3>Boosty</h3>
         <p>Buy me a coffee with a one-time donation.</p>
