@@ -92,7 +92,7 @@
   }
   .sup:hover .btn { transform: scale(1.06); }
   /* AID APP: always-on animated RGB border */
-  .sup.aid { --c: #00f5a0; border-color: transparent; }
+  .sup.aid { --c: #1c91f0; border-color: transparent; }
   .sup.aid::after {
     content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 2px; pointer-events: none;
     background: var(--rgb); background-size: 300% 100%; animation: shift 5s linear infinite;
@@ -103,16 +103,6 @@
   .sup .logo { overflow: hidden; }
   .sup .logo svg { width: 100%; height: 100%; display: block; }
   .sup.boosty .logo { padding: 10px; background: color-mix(in srgb, var(--c) 14%, transparent); border: 1px solid color-mix(in srgb, var(--c) 35%, transparent); }
-  /* Hover glow cycles through the same colours as the animated border */
-  .sup.aid:hover, .sup.aid:focus-visible { animation: glow 5s linear infinite; }
-  @keyframes glow {
-    0%, 100% { box-shadow: 0 18px 50px -14px #ff2e63; }
-    17% { box-shadow: 0 18px 50px -14px #ffb800; }
-    33% { box-shadow: 0 18px 50px -14px #00f5a0; }
-    50% { box-shadow: 0 18px 50px -14px #00d9ff; }
-    67% { box-shadow: 0 18px 50px -14px #3d7bff; }
-    83% { box-shadow: 0 18px 50px -14px #b14dff; }
-  }
   .sup.boosty { --c: #f15f2c; }
   @media (max-width: 820px) {
     .support { grid-template-columns: 1fr; }
