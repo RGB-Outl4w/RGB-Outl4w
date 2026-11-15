@@ -102,7 +102,8 @@ addEventListener('keydown', e => {
     return;
   }
   if (e.target.closest('input, textarea') || e.ctrlKey || e.metaKey || e.altKey) return;
-  const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+  // physical letter keys, so "outlaw" and B/A work on a Russian layout too
+  const key = /^Key[A-Z]$/.test(e.code) ? e.code[3].toLowerCase() : e.key.length === 1 ? e.key.toLowerCase() : e.key;
   // extra ArrowUps keep the "↑↑" prefix alive
   kPos = key === konami[kPos] ? kPos + 1 : key === 'ArrowUp' ? (kPos === 2 ? 2 : 1) : 0;
   if (kPos === konami.length) { kPos = 0; rave(!isRave()); }

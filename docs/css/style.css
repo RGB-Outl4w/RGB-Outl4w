@@ -21,6 +21,16 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
 }
+/* Russian page: Space Grotesk has no Cyrillic, Manrope does (h1 keeps Space Grotesk) */
+html:lang(ru) body { font-family: Manrope, system-ui, sans-serif; }
+
+/* Language switch */
+.lang { position: absolute; z-index: 5; top: max(16px, env(safe-area-inset-top)); right: max(16px, env(safe-area-inset-right));
+  padding: 10px 12px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255, 255, 255, .03);
+  font: 600 12px/1 "JetBrains Mono", monospace; letter-spacing: .15em; color: var(--muted); text-decoration: none; transition: color .2s, border-color .2s; }
+@media (hover: hover) { .lang:hover { color: var(--text); border-color: var(--g); } }
+.lang:focus-visible { color: var(--text); border-color: var(--g); outline: none; }
+
 /* Background: grid + drifting colour blobs */
 body::before {
   content: ""; position: fixed; inset: 0; z-index: -2;
@@ -46,6 +56,7 @@ header { padding-block: 12vh 6vh; padding-block: max(12svh, calc(env(safe-area-i
 .tag { font: 600 12px/1 "JetBrains Mono", monospace; letter-spacing: .25em; text-transform: uppercase; color: var(--muted); }
 .tag::before { content: "> "; color: var(--g); }
 h1 {
+  font-family: "Space Grotesk", sans-serif;
   position: relative; cursor: default; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
   font-size: clamp(44px, 11vw, 112px); line-height: .95; font-weight: 700; letter-spacing: -.04em;
   margin: 22px 0 18px;
