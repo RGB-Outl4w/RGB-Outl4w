@@ -160,6 +160,9 @@ h1.glitch .name { animation: shift 8s linear infinite, jitter .32s steps(1); }
 }
 .card.in { opacity: 1; transform: none; }
 .card[hidden] { display: none; }
+.card.main { grid-column: 1 / -1; }
+.card.main h2 { font-size: clamp(23px, 3vw, 32px); }
+.card.main p { max-width: 640px; }
 /* Spotlight following the cursor */
 .card::before {
   content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .3s;
