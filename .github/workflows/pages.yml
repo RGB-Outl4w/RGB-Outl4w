@@ -1,0 +1,38 @@
+name: Deploy showcase
+
+# Rebuilds on every push to docs/, every 6 hours (fresh GitHub stats), or by hand.
+on:
+  push:
+    branches: [main]
+    paths: ['docs/**', '.github/**']
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch GitHub stats
+        run: python3 .github/scripts/fetch_github_data.py docs/data/github.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -24,6 +24,21 @@ body {
 /* Russian page: Space Grotesk has no Cyrillic, Manrope does (h1 keeps Space Grotesk) */
 html:lang(ru) body { font-family: Manrope, system-ui, sans-serif; }
 
+/* Contribution heatmap: busier days go blue -> cyan -> green -> red (theme colours) */
+.heat { max-width: 880px; margin: 48px auto 0; }
+.heat-grid { display: grid; grid-template-rows: repeat(7, auto); grid-auto-flow: column; grid-auto-columns: minmax(10px, 1fr);
+  gap: 3px; overflow-x: auto; scrollbar-width: none; padding: 2px; }
+.heat-grid::-webkit-scrollbar { display: none; }
+.heat-grid > * { aspect-ratio: 1; border-radius: 3px; }
+.heat-grid i { background: rgba(255, 255, 255, .055); }
+.heat-grid [data-l="1"] { background: var(--b); opacity: .55; }
+.heat-grid [data-l="2"] { background: color-mix(in oklab, var(--b), var(--g)); opacity: .7; }
+.heat-grid [data-l="3"] { background: var(--g); opacity: .85; }
+.heat-grid [data-l="4"] { background: var(--r); }
+.heat.anim i { animation: pop .5s calc(var(--w) * 14ms) backwards; }
+@keyframes pop { from { opacity: 0; transform: scale(.3); } }
+.heat-cap { margin-top: 12px; font: 12px/1 "JetBrains Mono", monospace; color: var(--muted); }
+
 /* Language switch */
 .lang { position: absolute; z-index: 5; top: max(16px, env(safe-area-inset-top)); right: max(16px, env(safe-area-inset-right));
   padding: 10px 12px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255, 255, 255, .03);
@@ -174,6 +189,11 @@ h1.glitch .name { animation: shift 8s linear infinite, jitter .32s steps(1); }
 .card.main { grid-column: 1 / -1; }
 .card.main h2 { font-size: clamp(23px, 3vw, 32px); }
 .card.main p { max-width: 640px; }
+/* Live GitHub line on cards (js/github.js) */
+.rel { display: flex; align-items: center; gap: 10px; font: 12px/1 "JetBrains Mono", monospace; color: var(--muted); }
+.rel .stars { margin-left: auto; color: var(--c); }
+.rel .live { width: 7px; height: 7px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 0 var(--c); animation: live 2s ease-out infinite; }
+@keyframes live { 70%, 100% { box-shadow: 0 0 0 6px transparent; } }
 /* Spotlight following the cursor */
 .card::before {
   content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .3s;
